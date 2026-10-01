@@ -88,6 +88,43 @@ configure(
 )
 ```
 
+## Run your own benchmark
+
+`edma_core.bench` ships the full benchmark lab — independent evaluator,
+contract auditor, metrics, reports — as part of the package. The evaluator
+never sees EDMA code; the EDMA runtime never sees the evaluator. **No
+automatic winner is declared**: reports show facts + deltas + Wilson 95% CIs;
+failed cases are never hidden; `UNCERTAIN` is never promoted to `PASS`.
+
+Deterministic scripted run (no network, no keys — fully reproducible):
+
+```bash
+python -m edma_core.bench list
+python -m edma_core.bench run                  # golden-v1: CONTROL vs EDMA, scripted
+python -m edma_core.bench run --limit 4        # first 4 cases
+python -m edma_core.bench world --set world-v1 # GSM8K+MMLU grading (scripted demo)
+```
+
+Real-model run (keys via env only — never in repo, traces, logs or reports):
+
+```bash
+export EDMA_BENCH_KEYS="key1,key2"            # round-robin; rotates on 429/limits
+export EDMA_BENCH_MODEL="qwen/qwen3.8-27b"    # any OpenAI-compatible model id
+export EDMA_BENCH_BASE_URL="https://api.groq.com/openai/v1"
+python -m edma_core.bench run --real          # CONTROL + EDMA share the same model
+```
+
+Artifacts land in `bench_runs/<run_id>.json` (gitignored): per-case results,
+contract violations, regressions, aggregates and CIs.
+
+Suites: `golden-v1` (15 deterministic cases, categories A–O, scripted modes),
+`world-v1` (30 real GSM8K/MMLU items, reference-key grading),
+`world-v2` (42 items across math/knowledge/safety/structured domains).
+
+House rules (unchanged from the reference lab): `NO EVIDENCE → NO PASS` ·
+`MODEL CLAIM → NOT EVIDENCE` · `EDMA SELF-REPORT → NOT EVIDENCE` · provider
+failure → STOP, no silent fallbacks.
+
 ## Honest benchmarks (small n — no superiority claims)
 
 Controlled runs (independent evaluator, the model never grades itself;

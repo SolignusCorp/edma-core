@@ -2,6 +2,17 @@
 
 All notable changes to **edma-core**. Format: Keep a Changelog; semver.
 
+## [Unreleased]
+
+### Added
+- `edma_core.bench` — the benchmark lab as a package: case sets (golden-v1,
+  world-v1, world-v2), independent evaluator + contract auditor, metrics and
+  Wilson-CI reports, deterministic scripted runs and real-model runs via any
+  OpenAI-compatible endpoint (`python -m edma_core.bench`). Import-lint gate:
+  only `bench/adapters/edma_binding.py` may import the EDMA core; the
+  evaluator never does. No automatic winner; failed cases never hidden;
+  `UNCERTAIN` never promoted.
+
 ## [0.1.0] — 2026-10-01
 
 ### Added (F0+F1 — open-core extraction)
