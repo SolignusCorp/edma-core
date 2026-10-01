@@ -102,6 +102,16 @@ Controlled runs (independent evaluator, the model never grades itself;
 The value proposition is **discipline**: no PASS without evidence, forbidden
 actions stop, answers re-checked — at the cost of extra model calls.
 
+## Documentation
+
+- [docs/dop-graph.md](docs/dop-graph.md) — the frozen 13-state DOP graph (mermaid + table)
+- [docs/verification.md](docs/verification.md) — PASS/FAIL/UNCERTAIN/SKIPPED evidence rules
+- [docs/trace-and-audit.md](docs/trace-and-audit.md) — canonical trace + durable audit spec
+- [docs/threat-model.md](docs/threat-model.md) — why default-deny; residual risks
+- [docs/invariants.md](docs/invariants.md) — the project's constitution (PR-gated)
+- [MODEL_CARD.md](MODEL_CARD.md) — verbatim-honest benchmark numbers
+- [CONTRIBUTING.md](CONTRIBUTING.md) · [SECURITY.md](SECURITY.md) · [CHANGELOG.md](CHANGELOG.md)
+
 ## Development
 
 ```bash
