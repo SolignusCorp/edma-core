@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "edma": {
+      "command": "edma-mcp",
+      "args": [],
+      "env": {}
+    }
+  }
+}

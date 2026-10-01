@@ -88,6 +88,45 @@ configure(
 )
 ```
 
+## MCP server (Claude Desktop, Cursor & any MCP client)
+
+`edma-mcp` exposes EDMA's **verification** and **action-authorization** layers
+as standard [Model Context Protocol](https://modelcontextprotocol.io) tools over
+stdio — zero dependencies (stdlib JSON-RPC 2.0, protocol `2025-06-18`).
+
+The server **never executes actions**. `edma_authorize` returns a *decision*
+only (default-deny; the model cannot self-authorize), `edma_verify` judges an
+executed action's observable `ActionResult` — **NO EVIDENCE → NO PASS**.
+
+| Tool | Purpose |
+|---|---|
+| `edma_authorize` | granted / denied / `pending_human` for a PROPOSED action (decision only) |
+| `edma_verify` | evidence-based PASS/FAIL/UNCERTAIN for an executed action's `ActionResult` dict |
+| `edma_list_actions` | registered actions with risk + arg schema |
+| `edma_dop_graph` | the frozen 13-state DOP graph |
+
+Test drive:
+
+```bash
+echo '{"jsonrpc":"2.0","id":1,"method":"ping"}' | edma-mcp
+# or: python -m edma_core.mcp
+```
+
+Claude Desktop — copy [`examples/claude_desktop_config.json`](examples/claude_desktop_config.json)
+into `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or
+`%APPDATA%\Claude\claude_desktop_config.json` (Windows):
+
+```json
+{
+  "mcpServers": {
+    "edma": { "command": "edma-mcp", "args": [], "env": {} }
+  }
+}
+```
+
+Any other MCP client (Cursor, custom agents): launch `edma-mcp` as a subprocess
+and speak newline-delimited JSON-RPC over stdin/stdout.
+
 ## Run your own benchmark
 
 `edma_core.bench` ships the full benchmark lab — independent evaluator,

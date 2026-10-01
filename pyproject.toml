@@ -9,8 +9,9 @@ description = "EDMA — Evidence-Driven Model Architecture: a frozen, evidence-f
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "Apache-2.0" }
-authors = [{ name = "Solignus AI" }]
-keywords = ["ai", "agents", "runtime", "verification", "evidence", "llm"]
+authors = [{ name = "SolignusCorp", url = "https://github.com/SolignusCorp" }]
+keywords = ["ai", "agents", "runtime", "verification", "evidence", "llm",
+            "mcp", "model-context-protocol", "benchmark"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
@@ -23,10 +24,17 @@ dependencies = []
 
 [project.optional-dependencies]
 provider = ["httpx>=0.24"]
-dev = ["pytest>=7", "httpx>=0.24", "ruff"]
+dev = ["pytest>=7", "httpx>=0.24", "ruff", "build"]
 
 [project.urls]
 Homepage = "https://github.com/SolignusCorp/edma-core"
+Repository = "https://github.com/SolignusCorp/edma-core"
+Issues = "https://github.com/SolignusCorp/edma-core/issues"
+Changelog = "https://github.com/SolignusCorp/edma-core/blob/main/CHANGELOG.md"
+
+[project.scripts]
+edma-bench = "edma_core.bench.cli:main"
+edma-mcp = "edma_core.mcp.__main__:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/edma_core"]
