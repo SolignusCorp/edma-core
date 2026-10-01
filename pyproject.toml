@@ -1,0 +1,41 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "edma-core"
+version = "0.1.0"
+description = "EDMA — Evidence-Driven Model Architecture: a frozen, evidence-first cognitive runtime for AI agents (13-state DOP, default-deny actions, evidence-based verification, zero-template)."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Solignus AI" }]
+keywords = ["ai", "agents", "runtime", "verification", "evidence", "llm"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = []
+
+[project.optional-dependencies]
+provider = ["httpx>=0.24"]
+dev = ["pytest>=7", "httpx>=0.24", "ruff"]
+
+[project.urls]
+Homepage = "https://github.com/SolignusCorp/edma-core"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/edma_core"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "."]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 110
+src = ["src", "tests"]
